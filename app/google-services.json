@@ -1,14 +1,14 @@
 {
   "project_info": {
-    "project_number": "468663377437",
-    "firebase_url": "https://androidcourseworkmirea-default-rtdb.europe-west1.firebasedatabase.app",
-    "project_id": "androidcourseworkmirea",
-    "storage_bucket": "androidcourseworkmirea.appspot.com"
+    "project_number": "455849286068",
+    "firebase_url": "https://kursach-16b7c-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "kursach-16b7c",
+    "storage_bucket": "kursach-16b7c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:468663377437:android:f31213feb2f48bd495f0f4",
+        "mobilesdk_app_id": "1:455849286068:android:e4b0f1be8ac152bf6e7ae1",
         "android_client_info": {
           "package_name": "ru.mirea.androidcoursework"
         }
@@ -16,7 +16,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBP7gNT3IHifTmMC5lHxqaPt2th7WUkyZs"
+          "current_key": "AIzaSyAc-a2P9ci1_FZufsk9L6wdqotHNhVN8w4"
         }
       ],
       "services": {

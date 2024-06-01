@@ -1,5 +1,6 @@
 package ru.mirea.androidcoursework;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,45 +16,41 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import ru.mirea.androidcoursework.databinding.ActivityMainBinding;
 import ru.mirea.androidcoursework.entity.User;
 
 public class MainActivity extends AppCompatActivity {
 
+    private ActivityMainBinding binding;
 
-    private EditText etName, edSecondName, etEmail;
     private DatabaseReference mDataBase;
     private final String USER_KEY = "User";
 
-    public void init(){
-        etName = findViewById(R.id.etName);
-        edSecondName = findViewById(R.id.etSecondName);
-        etEmail = findViewById(R.id.etEmail);
 
-        mDataBase = FirebaseDatabase.getInstance().getReference(USER_KEY);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        init();
-
-
+        mDataBase = FirebaseDatabase.getInstance().getReference(USER_KEY);
     }
+
 
 
     public void Save(View view) {
         String id = mDataBase.getKey();
-        String name = etName.getText().toString();
-        String secondName = edSecondName.getText().toString();
-        String email = etEmail.getText().toString();
+        String name = binding.etName.getText().toString();
+        String secondName = binding.etSecondName.getText().toString();
+        String email = binding.etEmail.getText().toString();
         if(name.isEmpty() || secondName.isEmpty() || email.isEmpty()){
             Toast.makeText(this, "Заполните все поля", Toast.LENGTH_SHORT).show();
             return;
@@ -66,7 +63,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
-    // TODO: Добавить методы проверки введёные значений
+    @Override
+    protected void onDestroy() {
+        binding = null;
+        super.onDestroy();
+    }
 
 }
