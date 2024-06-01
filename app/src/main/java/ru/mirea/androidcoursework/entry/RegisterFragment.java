@@ -1,7 +1,6 @@
-package ru.mirea.androidcoursework;
+package ru.mirea.androidcoursework.entry;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import ru.mirea.androidcoursework.R;
 import ru.mirea.androidcoursework.databinding.RegisterFragmentBinding;
 
 public class RegisterFragment extends Fragment
@@ -63,15 +63,17 @@ public class RegisterFragment extends Fragment
 
     @Override
     public void onDestroyView() {
-        binding = null;
         super.onDestroyView();
+        binding = null;
     }
 
 
     private void registerNewUser(View v)
     {
         registerNewUserInFireBase(v);
+        if (currentUser == null) return;
         mAuth.signOut();
+
         // TODO: Перейти на navigation
         getParentFragmentManager().beginTransaction()
                 .replace(R.id.fragmentConrainer, new LoginFragment())
