@@ -5,16 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
+import androidx.navigation.Navigation;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
 import ru.mirea.androidcoursework.R;
 import ru.mirea.androidcoursework.databinding.RegisterFragmentBinding;
+
 
 public class RegisterFragment extends Fragment
 {
@@ -22,12 +20,9 @@ public class RegisterFragment extends Fragment
     {
         // Required empty public constructor
     }
-    private FirebaseAuth mAuth;
-    private FirebaseUser currentUser;
 
-
+    private FirebaseAuth mAuth;;
     RegisterFragmentBinding binding;
-
 
     @Nullable
     @Override
@@ -46,41 +41,20 @@ public class RegisterFragment extends Fragment
 
     }
 
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        currentUser = mAuth.getCurrentUser();
-        if (currentUser != null)
-        {
-            Toast.makeText(getContext(), "User already logged in", Toast.LENGTH_SHORT).show();
-        }
-        else
-        {
-            Toast.makeText(getContext(), "User not logged in", Toast.LENGTH_SHORT).show();
-        }
-    }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
 
-
-    private void registerNewUser(View v)
+    private void registerNewUser(View view)
     {
-        registerNewUserInFireBase(v);
-        if (currentUser == null) return;
-        mAuth.signOut();
+        registerNewUserInFireBase(view);
+        Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_loginFragment);
 
-        // TODO: Перейти на navigation
-        getParentFragmentManager().beginTransaction()
-                .replace(R.id.fragmentConrainer, new LoginFragment())
-                .commit();
     }
 
-    private void registerNewUserInFireBase(View v)
+    private void registerNewUserInFireBase(View view)
     {
         String email = binding.etEmail.getText().toString();
         String password = binding.etPassword.getText().toString();

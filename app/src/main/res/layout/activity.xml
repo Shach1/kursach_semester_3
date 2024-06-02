@@ -5,16 +5,21 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
     tools:context=".Activity">
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentConrainer"
+
+    <fragment
+        android:id="@+id/fragmentContainer"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="ru.mirea.androidcoursework.entry.LoginFragment"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_marginBottom="80dp"
-        />
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/navigation"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -26,10 +31,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentConrainer"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentContainer"
         app:layout_constraintVertical_bias="0.0"
         app:menu="@menu/bottom_nav_menu"
         tools:visibility="visible" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

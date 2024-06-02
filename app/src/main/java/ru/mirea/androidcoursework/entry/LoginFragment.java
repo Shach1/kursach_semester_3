@@ -1,22 +1,20 @@
 package ru.mirea.androidcoursework.entry;
 
+import static android.content.Context.MODE_PRIVATE;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
+import androidx.navigation.Navigation;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 import ru.mirea.androidcoursework.R;
 import ru.mirea.androidcoursework.databinding.LoginFragmentBinding;
-import ru.mirea.androidcoursework.main.HomeFragment;
 
 
 public class LoginFragment extends Fragment
@@ -27,9 +25,10 @@ public class LoginFragment extends Fragment
     }
 
     private LoginFragmentBinding binding;
-    private FragmentManager fragmentManager;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
+    private boolean isRememberMe;
+    private SharedPreferences sharedPreferences;
 
     @Nullable
     @Override
@@ -38,33 +37,31 @@ public class LoginFragment extends Fragment
         return binding.getRoot();
     }
 
+    private void init()
+    {
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+        binding.tvRegister.setOnClickListener(this::onRegisterFragment);
+        binding.btLogin.setOnClickListener(this::onLoginInFireBase);
+        binding.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> isRememberMe = isChecked);
+
+        try {sharedPreferences = requireActivity().getSharedPreferences("login", MODE_PRIVATE);}
+        catch (Exception e){ e.printStackTrace();}
+        isRememberMe = sharedPreferences.getBoolean("isRememberMe", false);
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        // Тут инифиализируем и устанавливаем слушателми событий
-
-        mAuth = FirebaseAuth.getInstance();
-        fragmentManager = getParentFragmentManager();
-        binding.tvRegister.setOnClickListener(this::onRegisterFragment);
-        binding.btLogin.setOnClickListener(this::onLogin);
+        init();
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        currentUser = mAuth.getCurrentUser();
-        if (currentUser != null)
+        if (currentUser != null && isRememberMe)
         {
-            // TODO: Изменить при получении пользователя
-            Toast.makeText(getContext(), "User already logged in", Toast.LENGTH_SHORT).show();
-            getActivity().findViewById(R.id.bottom_navigation).setVisibility(View.VISIBLE);
-            fragmentManager.beginTransaction()
-                    .replace(R.id.fragmentConrainer, new HomeFragment())
-                    .commit();
-        }
-        else
-        {
-            Toast.makeText(getContext(), "User not logged in", Toast.LENGTH_SHORT).show();
+            onHomeFragment();
         }
     }
 
@@ -76,25 +73,7 @@ public class LoginFragment extends Fragment
 
     private void onRegisterFragment(View view)
     {
-        // TODO: Перейти на navigation
-        fragmentManager.beginTransaction()
-                .replace(R.id.fragmentConrainer, new RegisterFragment())
-                .addToBackStack(null)
-                .commit();
-    }
-
-
-    private void onLogin(View view) {
-        onLoginInFireBase(view);
-        if (currentUser != null)
-        {
-            // TODO: Перейти на navigation
-            getActivity().findViewById(R.id.bottom_navigation).setVisibility(View.VISIBLE);
-            fragmentManager.beginTransaction()
-                    .replace(R.id.fragmentConrainer, new HomeFragment())
-                    .commit();
-        }
-
+        Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_registerFragment);
     }
 
     private void onLoginInFireBase(View view) {
@@ -110,13 +89,16 @@ public class LoginFragment extends Fragment
             Toast.makeText(getContext(), "Password is empty", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        if (isRememberMe)
+        {
+            sharedPreferences.edit().putBoolean("isRememberMe", isRememberMe).apply();
+        }
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful())
                     {
-                        fragmentManager.beginTransaction()
-                                .replace(R.id.fragmentConrainer, new HomeFragment())
-                                .commit();
+                        onHomeFragment();
                     }
                     else
                     {
@@ -125,5 +107,9 @@ public class LoginFragment extends Fragment
                 });
     }
 
-
+    private void onHomeFragment()
+    {
+        getActivity().findViewById(R.id.bottom_navigation).setVisibility(View.VISIBLE);
+        Navigation.findNavController(getView()).navigate(R.id.action_loginFragment_to_homeFragment);
+    }
 }
