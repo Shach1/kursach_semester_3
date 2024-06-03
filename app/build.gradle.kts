@@ -54,6 +54,7 @@ dependencies {
     implementation(libs.navigation.ui)
     implementation(libs.navigation.fragment)
     implementation(libs.firebase.storage)
+    implementation(libs.picasso)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

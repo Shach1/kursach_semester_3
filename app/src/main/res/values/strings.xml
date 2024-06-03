@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AndroidCoursework</string>
+    <string name="spinner_prompt">Выберите категорию</string>
 </resources>

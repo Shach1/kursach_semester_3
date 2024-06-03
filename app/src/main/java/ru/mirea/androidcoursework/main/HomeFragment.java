@@ -13,10 +13,23 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import ru.mirea.androidcoursework.Activity;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import ru.mirea.androidcoursework.Decoration.SpaceItemDecoration;
 import ru.mirea.androidcoursework.R;
+import ru.mirea.androidcoursework.adapter.CardProductPreviewAdapter;
 import ru.mirea.androidcoursework.databinding.HomeFragmentBinding;
+import ru.mirea.androidcoursework.entity.CardProduct;
 
 
 public class HomeFragment extends Fragment
@@ -26,9 +39,11 @@ public class HomeFragment extends Fragment
         // Required empty public constructor
     }
 
-    HomeFragmentBinding binding;
+    private HomeFragmentBinding binding;
     private SharedPreferences sharedPreferences;
     private boolean isAdmin;
+    private DatabaseReference databaseReference;
+
 
 
     @Nullable
@@ -57,6 +72,41 @@ public class HomeFragment extends Fragment
 
         if(isAdmin) binding.btAddNewProduct.setVisibility(View.VISIBLE);
         binding.btAddNewProduct.setOnClickListener(this::onAddNewCardProduct);
+
+        binding.rvProductsPreview.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.rvProductsPreview.addItemDecoration(new SpaceItemDecoration(20));
+
+
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("CardProduct");
+
+        // Создание слушателя для получения данных
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (binding == null) {
+                    // Если binding равен null, прекращаем выполнение метода
+                    return;
+                }
+                List<CardProduct> cardProductList = new ArrayList<>();
+                for (DataSnapshot productSnapshot : dataSnapshot.getChildren()) {
+                    CardProduct cardProduct = productSnapshot.getValue(CardProduct.class);
+                    cardProductList.add(cardProduct);
+                }
+
+                // Создание адаптера и установка его для RecyclerView
+                CardProductPreviewAdapter adapter = new CardProductPreviewAdapter(cardProductList);
+                binding.rvProductsPreview.setAdapter(adapter);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("HomeFragment", "Failed to read value.", databaseError.toException());
+            }
+        };
+
+        // Добавление слушателя к базе данных
+        databaseReference.addValueEventListener(valueEventListener);
+
     }
 
     private void onAddNewCardProduct(View view)

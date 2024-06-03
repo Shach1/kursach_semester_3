@@ -77,7 +77,7 @@
         android:id="@+id/addNewCardProductFragment"
         android:name="ru.mirea.androidcoursework.main.AddNewCardProductFragment"
         android:label="AddNewCardProductFragment"
-        tools:layout="@layout/add_new_card_product">
+        tools:layout="@layout/add_new_card_product_fragment">
 
         <action
             android:id="@+id/action_addNewCardProductFragment_to_homeFragment"

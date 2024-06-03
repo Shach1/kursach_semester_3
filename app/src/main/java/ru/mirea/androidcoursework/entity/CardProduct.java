@@ -21,6 +21,8 @@ public class CardProduct
         this.price = price;
     }
 
+    public CardProduct() {}
+
     public String getId() {
         return id;
     }
