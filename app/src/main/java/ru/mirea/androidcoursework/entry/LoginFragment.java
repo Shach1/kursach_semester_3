@@ -13,6 +13,10 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Objects;
+
+import ru.mirea.androidcoursework.Activity;
 import ru.mirea.androidcoursework.R;
 import ru.mirea.androidcoursework.databinding.LoginFragmentBinding;
 
@@ -61,6 +65,9 @@ public class LoginFragment extends Fragment
         super.onStart();
         if (currentUser != null && isRememberMe)
         {
+            if (currentUser.getEmail().equals("admin@mail.ru")) sharedPreferences.edit().putBoolean("isAdmin", true).apply();
+            else sharedPreferences.edit().putBoolean("isAdmin", false).apply();
+
             onHomeFragment();
         }
     }
@@ -98,6 +105,8 @@ public class LoginFragment extends Fragment
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful())
                     {
+                        if (email.equals("admin@mail.ru")) sharedPreferences.edit().putBoolean("isAdmin", true).apply();
+                        else sharedPreferences.edit().putBoolean("isAdmin", false).apply();
                         onHomeFragment();
                     }
                     else
@@ -110,6 +119,6 @@ public class LoginFragment extends Fragment
     private void onHomeFragment()
     {
         getActivity().findViewById(R.id.bottom_navigation).setVisibility(View.VISIBLE);
-        Navigation.findNavController(getView()).navigate(R.id.action_loginFragment_to_homeFragment);
+        Navigation.findNavController(requireView()).navigate(R.id.action_loginFragment_to_homeFragment);
     }
 }

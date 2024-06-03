@@ -1,16 +1,16 @@
 package ru.mirea.androidcoursework.main;
 
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import ru.mirea.androidcoursework.databinding.CartFragmentBinding;
+
 
 public class CartFragment extends Fragment
 {
@@ -19,7 +19,8 @@ public class CartFragment extends Fragment
         // Required empty public constructor
     }
 
-    CartFragmentBinding binding;
+    private CartFragmentBinding binding;
+
 
     @Nullable
     @Override
@@ -39,6 +40,4 @@ public class CartFragment extends Fragment
         super.onViewCreated(view, savedInstanceState);
         Log.d("CartFragment", "onViewCreated: ");
     }
-
-
 }
