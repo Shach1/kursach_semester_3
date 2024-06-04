@@ -42,6 +42,9 @@
         <action
             android:id="@+id/action_homeFragment_to_addNewCardProductFragment"
             app:destination="@id/addNewCardProductFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_itemCardProductViewFragment"
+            app:destination="@id/itemCardProductViewFragment" />
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
@@ -85,5 +88,21 @@
             app:popUpTo="@id/addNewCardProductFragment"
             app:popUpToInclusive="true"/>
     </fragment>
+
+    <fragment
+        android:id="@+id/itemCardProductViewFragment"
+        android:name="ru.mirea.androidcoursework.main.ItemCardProductViewFragment"
+        android:label="ItemCardProductFragment"
+        tools:layout="@layout/item_card_product_view">
+        <argument
+            android:name="cardProduct"
+            app:argType="ru.mirea.androidcoursework.entity.CardProduct" />
+        <action
+            android:id="@+id/action_itemCardProductViewFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/itemCardProductViewFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+
 
 </navigation>

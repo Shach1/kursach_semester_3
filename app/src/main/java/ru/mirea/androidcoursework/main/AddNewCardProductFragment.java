@@ -72,14 +72,28 @@ public class AddNewCardProductFragment extends Fragment
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+        Log.d("AddNewCardProductFragment", "onStop: ");
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+        Log.d("AddNewCardProductFragment", "onDestroyView: ");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("AddNewCardProductFragment", "onDestroy: ");
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.d("AddNewCardProductFragment", "onViewCreated: ");
 
         mDatabase = FirebaseDatabase.getInstance().getReference(CARD_PRODUCT_KEY);
 
@@ -113,15 +127,7 @@ public class AddNewCardProductFragment extends Fragment
         mStorageRef = FirebaseStorage.getInstance().getReference(IMAGES_KEY);
         mStorageRefChild = mStorageRef.child(System.currentTimeMillis() + "my_image");
 
-        mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
-                uri -> {
-                    if(uri != null)
-                    {
-                        binding.imageView.setImageURI(uri);
-                        updateImageUri(uri);
-                    }
-                    else Toast.makeText(view.getContext(), "Не удалось загрузить изображение", Toast.LENGTH_SHORT).show();
-                });
+        initMGetContent();
     }
 
     private void getImageFromGallery(View view) {
@@ -193,6 +199,19 @@ public class AddNewCardProductFragment extends Fragment
     public void updateImageUri(Uri uri)
     {
         imageUri = uri;
+    }
+
+    private void initMGetContent()
+    {
+        mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
+                uri -> {
+                    if(uri != null)
+                    {
+                        binding.imageView.setImageURI(uri);
+                        updateImageUri(uri);
+                    }
+                    else Toast.makeText(getContext(), "Не удалось загрузить изображение", Toast.LENGTH_SHORT).show();
+                });
     }
 
 }

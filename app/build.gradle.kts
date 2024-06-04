@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     // Add the Google services Gradle plugin
     id("com.google.gms.google-services")
-
+    id("androidx.navigation.safeargs") version "2.5.0"
 }
 
 android {
@@ -55,6 +55,7 @@ dependencies {
     implementation(libs.navigation.fragment)
     implementation(libs.firebase.storage)
     implementation(libs.picasso)
+    implementation(libs.roundedimageview)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

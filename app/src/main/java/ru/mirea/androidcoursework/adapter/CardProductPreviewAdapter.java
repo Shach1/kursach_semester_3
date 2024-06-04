@@ -37,7 +37,6 @@ public class CardProductPreviewAdapter extends RecyclerView.Adapter<CardProductP
     public void onBindViewHolder(@NonNull CardProductViewHolder holder, int position) {
         CardProduct cardProduct = cardProductList.get(position);
         holder.tvTitle.setText(cardProduct.getTitle());
-        holder.tvDescription.setText(cardProduct.getDescription());
         holder.tvPrice.setText(String.valueOf(cardProduct.getPrice()) + " ₽");
         Picasso.get().load(cardProduct.getImageUrl()).into(holder.imageView);
     }
@@ -48,13 +47,12 @@ public class CardProductPreviewAdapter extends RecyclerView.Adapter<CardProductP
     }
 
     public static class CardProductViewHolder extends RecyclerView.ViewHolder {
-        TextView tvTitle, tvDescription, tvPrice;
+        TextView tvTitle, tvPrice;
         ImageView imageView;
 
         public CardProductViewHolder(@NonNull View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tvTitle);
-            tvDescription = itemView.findViewById(R.id.tvDescription);
             tvPrice = itemView.findViewById(R.id.tvPrice);
             imageView = itemView.findViewById(R.id.imageView);
         }

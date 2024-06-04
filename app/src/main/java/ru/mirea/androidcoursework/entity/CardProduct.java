@@ -1,6 +1,11 @@
 package ru.mirea.androidcoursework.entity;
 
-public class CardProduct
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+public class CardProduct implements Parcelable
 {
     private String id;
     private String title;
@@ -46,4 +51,41 @@ public class CardProduct
     public String getImageUrl() {
         return imageUrl;
     }
+
+
+    protected CardProduct(Parcel in) {
+        id = in.readString();
+        title = in.readString();
+        description = in.readString();
+        category = in.readString();
+        price = in.readDouble();
+        imageUrl = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(title);
+        dest.writeString(description);
+        dest.writeString(category);
+        dest.writeDouble(price);
+        dest.writeString(imageUrl);
+    }
+
+    public static final Creator<CardProduct> CREATOR = new Creator<CardProduct>() {
+        @Override
+        public CardProduct createFromParcel(Parcel in) {
+            return new CardProduct(in);
+        }
+
+        @Override
+        public CardProduct[] newArray(int size) {
+            return new CardProduct[size];
+        }
+    };
 }
