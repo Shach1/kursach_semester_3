@@ -1,8 +1,39 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.AndroidCoursework" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <style name="Base.Theme.AndroidCoursework" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <!-- Primary colors -->
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimaryDark">@color/dark_grey</item>
+        <item name="colorPrimaryVariant">@color/gray</item>
+
+        <!-- Accent colors -->
+        <item name="colorAccent">@color/deep_blue</item>
+        <item name="colorSecondary">@color/neutral_blue</item>
+        <item name="colorSecondaryVariant">@color/light_blue</item>
+
+        <!-- Text colors -->
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondary">@color/purple</item>
+
+        <!-- Bottom bar color -->
+        <item name="android:colorBackground">@color/gray</item>
+
+        <!-- Button style -->
+        <item name="android:buttonStyle">@style/ButtonStyle</item>
+
+        <!-- EditText style -->
+        <item name="android:editTextStyle">@style/EditTextStyle</item>
+    </style>
+
+    <style name="ButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:backgroundTint">@color/deep_blue</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:backgroundTint">@color/black</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="Theme.AndroidCoursework" parent="Base.Theme.AndroidCoursework" />

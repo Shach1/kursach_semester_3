@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Моя корзина"
-        android:textSize="30sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -54,7 +54,8 @@
         android:text="Итого: "
         android:textSize="19dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/btPerchase"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/btPurchase"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewShopCart2" />
 
@@ -65,12 +66,13 @@
         android:text="100₽"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/btPerchase"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/btPurchase"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewShopCart2" />
 
     <Button
-        android:id="@+id/btPerchase"
+        android:id="@+id/btPurchase"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/gray"

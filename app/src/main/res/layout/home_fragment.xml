@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="main.HomeFragment"
-    android:background="@color/white">
+    tools:context="main.HomeFragment">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,10 +29,11 @@
             android:id="@+id/rvProductsPreview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/btAddNewProduct"
+            android:layout_marginTop="40dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="20dp"/>
+            app:layout_constraintTop_toBottomOf="@+id/spinnerCategory" />
 
         <Spinner
             android:id="@+id/spinnerCategory"
@@ -43,7 +43,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.164"
             app:layout_constraintStart_toEndOf="@+id/btAddNewProduct"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:outlineAmbientShadowColor="@color/neutral_blue"
+            android:outlineSpotShadowColor="@color/neutral_blue"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
