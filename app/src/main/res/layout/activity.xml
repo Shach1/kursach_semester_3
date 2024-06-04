@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/neutral_blue"
     tools:context=".Activity">
 
 
@@ -27,6 +28,7 @@
         android:layout_height="60dp"
         android:layout_gravity="bottom"
         android:visibility="gone"
+        android:background="@drawable/rounded_bottom_navigation"
         app:itemIconTint="@color/bottom_nav_item_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

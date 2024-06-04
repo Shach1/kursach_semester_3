@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -82,6 +84,7 @@ public class CartFragment extends Fragment implements IOnCartChangedListener
     {
         if (productsInCart.getProductsInCart().isEmpty())
         {
+            Toast.makeText(getContext(), "Корзина пуста", Toast.LENGTH_SHORT).show();
             return;
         }
         List<Product> products = new ArrayList<>();
